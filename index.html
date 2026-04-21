@@ -42,6 +42,13 @@ tbody td:first-child{text-align:center;font-weight:600;color:#1F4E79}
 .em-b{color:#1F4E79;font-weight:700}
 .em-hl{background:#FFF3CD;color:#7A4A00;font-weight:700;padding:1px 5px;border-radius:3px}
 .sub-ref{font-size:10px;color:#b8c9d9;font-weight:400;margin-left:3px;letter-spacing:0}
+.ref-box{background:#F7F9FB;border:1px solid #E4EAF0;border-radius:8px;padding:10px 16px;margin-top:12px}
+.ref-box p{font-size:11px;color:#8fa3b8;margin-bottom:6px}
+.ref-tbl{width:100%;border-collapse:collapse;font-size:11px;color:#7a8fa3}
+.ref-tbl th{font-weight:600;color:#8fa3b8;padding:3px 8px;text-align:center;border-bottom:1px solid #E4EAF0;white-space:nowrap}
+.ref-tbl td{padding:3px 8px;text-align:center;border-bottom:1px solid #F0F4F8}
+.ref-tbl tr:last-child td{border-bottom:none}
+.ref-tbl .future{color:#b8c9d9;font-style:italic}
 .footer{text-align:center;padding:16px;font-size:11px;color:#8fa3b8}
 </style>
 </head>
@@ -127,6 +134,18 @@ tbody td:first-child{text-align:center;font-weight:600;color:#1F4E79}
   <div class="card">
     <div class="card-title"><span class="dot red"></span> 카드승인금액 & 사업부 부담비용 (2025-11~)</div>
     <canvas id="c4" height="140"></canvas>
+    <div class="ref-box">
+      <p>※ 카드할인 비용 부담 구조</p>
+      <table class="ref-tbl">
+        <thead><tr><th>기간</th><th>카드사</th><th>네이버(사업부)</th><th>브랜드사(참여계정)</th><th>기간 평균 참여계정 수</th></tr></thead>
+        <tbody>
+          <tr><td>~2025-05</td><td>50%</td><td>50%</td><td>-</td><td>73개</td></tr>
+          <tr><td>2025-06~2026-03</td><td>50%</td><td>25%</td><td>25%</td><td>25개</td></tr>
+          <tr class="future"><td>2026-04~ 바우처 참여사 (예정)</td><td>50%</td><td>36%</td><td>14%</td><td>-</td></tr>
+          <tr class="future"><td>2026-04~ 바우처 미참여사 (예정)</td><td>50%</td><td>14%</td><td>36%</td><td>-</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -165,7 +184,7 @@ new Chart(document.getElementById('c1'),{type:'bar',data:{labels:months,datasets
   {label:'카드할인 계정(억)',data:C.map(v=>+(v/1e8).toFixed(1)),backgroundColor:'#70AD47'}
 ]},options:{responsive:true,plugins:{legend:{position:'top'}},scales:{y:{ticks:{callback:v=>v+'억'},grid:{color:'#eef2f7'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
 
-// 차트2: 비중 + 계정수 (이중축)
+// 차트2: 비중 ++계정수 (이중축)
 new Chart(document.getElementById('c2'),{type:'bar',data:{labels:months,datasets:[
   {type:'line',label:'카드할인 비중(%)',data:T.map((t,i)=>+(C[i]/t*100).toFixed(2)),borderColor:'#FF8C00',backgroundColor:'rgba(255,140,0,0.1)',fill:false,tension:0.3,pointRadius:4,yAxisID:'y1'},
   {type:'bar',label:'참여계정 수(개)',data:CN,backgroundColor:'rgba(46,117,182,0.3)',yAxisID:'y2'}
@@ -185,8 +204,8 @@ new Chart(document.getElementById('c3'),{type:'bar',data:{labels:yoyMonths,datas
 const cardMonths = months.filter(m=>DATA[m].card_approval>0);
 new Chart(document.getElementById('c4'),{type:'bar',data:{labels:cardMonths,datasets:[
   {label:'카드승인금액(억)',data:cardMonths.map(m=>+(DATA[m].card_approval/1e8).toFixed(1)),backgroundColor:'#2E75B6'},
-  {label:'사업부 부담비용(억)',data:cardMonths.map(m=>+(DATA[m].card_burden/1e8).toFixed(2)),backgroundColor:'#FF8C00'}
-]},options:{responsive:true,plugins:{legend:{position:'top'}},scales:{y:{ticks:{callback:v=>v+'억'},grid:{color:'#eef2f7'}},x:{grid:{display:false}}}}});
+  {label:'사업부 부담비용(억)',data:cardMonths.map(m=>+(DATA[m].card_burden/1e8).toFixed(2)),backgroundColor:'rgba(255,140,0,0.85)'}
+],options:{responsive:true,plugins:{legend:{position:'top'}},scales:{y:{ticks:{callback:v=>v+'억'},grid:{color:'#eef2f7'}},x:{grid:{display:false}}}}});
 
 // 테이블
 const tb = document.getElementById('tb');
