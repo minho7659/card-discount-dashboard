@@ -191,7 +191,7 @@ months.forEach(m=>{
   if(m==='2026-03') tr.classList.add('hl');
   tr.innerHTML=`
     <td>${m}</td>
-    <td>$x(d.total/1e8).toFixed(0)}</td>
+    <td>${(d.total/1e8).toFixed(0)}</td>
     <td>${d.card_cnt>0?(d.card_trade/1e8).toFixed(1):'-'}</td>
     <td>${d.card_cnt>0?d.card_cnt+'개':'-'}</td>
     <td>${d.card_cnt>0?ratio.toFixed(1)+'%':'-'}</td>
